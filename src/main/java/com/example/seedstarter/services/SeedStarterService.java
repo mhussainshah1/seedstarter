@@ -1,9 +1,7 @@
 package com.example.seedstarter.services;
 
 import com.example.seedstarter.entities.SeedStarter;
-import com.example.seedstarter.entities.repositories.SeedRowRepository;
 import com.example.seedstarter.entities.repositories.SeedStarterRepository;
-import com.example.seedstarter.entities.repositories.VarietyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +10,6 @@ import java.util.List;
 
 @Service
 public class SeedStarterService {
-
-    @Autowired
-    VarietyRepository varietyRepository;
-
-    @Autowired
-    SeedRowRepository seedRowRepository;
 
     @Autowired
     private SeedStarterRepository seedstarterRepository;

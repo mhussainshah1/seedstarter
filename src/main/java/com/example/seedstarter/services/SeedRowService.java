@@ -3,7 +3,6 @@ package com.example.seedstarter.services;
 import com.example.seedstarter.entities.SeedRow;
 import com.example.seedstarter.entities.SeedStarter;
 import com.example.seedstarter.entities.repositories.SeedRowRepository;
-import com.example.seedstarter.entities.repositories.VarietyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,6 @@ public class SeedRowService {
 
     @Autowired
     SeedRowRepository seedRowRepository;
-
-    @Autowired
-    VarietyRepository varietyRepository;
 
     public void add(SeedRow seedRow) {
         seedRowRepository.save(seedRow);

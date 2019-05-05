@@ -19,10 +19,10 @@ public class DataLoader implements CommandLineRunner {
     SeedStarterRepository seedStarterRepository;
 
     @Autowired
-    SeedRowRepository seedRowRepository;
+    VarietyRepository varietyRepository;
 
     @Autowired
-    VarietyRepository varietyRepository;
+    SeedRowRepository seedRowRepository;
 
     @Override
     public void run(String... strings) throws Exception {
