@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../static/css/stsm.css" media="all"
+          rel="stylesheet"
+          th:href="@{/css/stsm.css}"
+          type="text/css"/>
+</head>
+
+<body>
+
+<div>
+    <img alt="STSM logo" src="../static/images/stsmlogo.png"
+         th:alt-title="#{title.application}" th:src="@{/images/stsmlogo.png}"
+         title="STSM logo"/>
+</div>
+
+<div class="seedstarterlist" th:unless="${#lists.isEmpty(allSeedStarters)}">
+    <h2 th:text="#{title.list}">List of Seed Starters</h2>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{seedstarter.datePlanted}">Date Planted</th>
+            <th th:text="#{seedstarter.covered}">Covered</th>
+            <th th:text="#{seedstarter.type}">Type</th>
+            <th th:text="#{seedstarter.features}">Features</th>
+            <th th:text="#{seedstarter.rows}">Rows</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sb : ${allSeedStarters}">
+            <td th:text="${{sb.datePlanted}}">13/01/2011</td>
+            <td th:text="#{|bool.${sb.covered}|}">yes</td>
+            <td th:text="#{|seedstarter.type.${sb.type}|}">Wireframe</td>
+            <td th:text="${#strings.arrayJoin(
+                            #messages.arrayMsg(
+                            #strings.arrayPrepend(sb.features,'seedstarter.feature.')),', ')}">
+                Electric Heating, Turf
+            </td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr th:each="row,rowStat : ${sb.seedRows}">
+
+                        <td th:text="${rowStat.count}">1</td>
+                        <td th:text="${row.variety.name}">Thymus Thymi</td>
+                        <td th:text="${row.seedsPerCell}">12</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h2 th:text="#{title.new}">Add new Seed Starter</h2>
+    <form action="#" method="post" th:action="@{/seedstartermng}" th:object="${seedStarter}">
+
+        <fieldset>
+            <!--        <input th:field="*{id}" type="hidden"/>-->
+            <legend th:text="#{seedstarter.data}">Seed Starter Data</legend>
+
+            <!--All errors-->
+            <ul class="errorlist" th:if="${#fields.hasErrors('*')}"> <!--#fields.hasAnyErrors()-->
+                <li th:each="err : ${#fields.errors('*')}"
+                    th:text="${err}">Input is incorrect
+                </li>
+            </ul>
+
+            <!--
+            <p th:if="${#fields.hasErrors('all')}"
+               th:errors="*{all}">Incorrect date</p>
+
+            <div th:if="${#fields.hasAnyErrors()}">
+                <p th:each="err : ${#fields.allErrors()}"
+                   th:text="${err}"></p> #fields.allErrors()
+            </div>
+
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+            </ul>
+
+            Global error
+            <ul th:if="${#fields.hasErrors('global')}">
+                <li th:each="err : ${#fields.errors('global')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Incorrect date</p>
+
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+            </div>
+
+            Rich error objects
+            <ul>
+                <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+                    <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+                    <span th:text="${e.message}">The error message</span>
+                </li>
+            </ul>
+            -->
+            <div>
+
+                <label for="datePlanted">
+                    <span th:text="#{seedstarter.datePlanted}">Date planted</span>
+                    (<span th:text="#{date.format}">YYYY/MM/DD</span>)
+                </label>
+                <!--
+                <input type="text" th:field="*{datePlanted}"
+                                   th:class="${#fields.hasErrors('datePlanted')}? fieldError" />
+                -->
+                <input class="small" th:errorclass="fieldError"
+                       th:field="*{datePlanted}" type="text"/>
+                <!--
+                <ul>
+                    <li th:each="err : ${#fields.errors('datePlanted')}"
+                        th:text="${err}" />
+                </ul>
+
+                <input type="text" th:field="*{datePlanted}" />
+                <p th:if="${#fields.hasErrors('datePlanted')}"
+                   th:errors="*{datePlanted}">Incorrect date</p>
+
+                <br/>
+                <input type="text" id="datePlanted" name="datePlanted" th:value="*{datePlanted}" />
+                -->
+            </div>
+            <div>
+                <label th:for="${#ids.next('covered')}"
+                       th:text="#{seedstarter.covered}">Covered</label>
+                <input th:field="*{covered}" type="checkbox"/>
+                <!--
+                <br/>
+                <label th:for="${#ids.next('covered')}"
+                       th:text="#{seedstarter.covered}">Covered</label>
+                <input type="checkbox" th:field="*{covered}" />
+                -->
+            </div>
+
+            <div>
+                <label for="type" th:text="#{seedstarter.type}">Type</label>
+                <!--
+                <ul>
+                    <li th:each="ty : ${allTypes}">
+                        <input type="radio" th:field="*{type}" th:value="${ty}" />
+                        <label th:for="${#ids.prev('type')}"
+                               th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+                    </li>
+                </ul>
+                -->
+                <select th:field="*{type}">
+                    <option th:each="type : ${allTypes}"
+                            th:text="#{${'seedstarter.type.' + type}}"
+                            th:value="${type}">Wireframe
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label th:text="#{seedstarter.features}">Features</label>
+                <ul>
+                    <li th:each="feat : ${allFeatures}">
+                        <input th:field="*{features}" th:value="${feat}" type="checkbox"/>
+                        <label th:for="${#ids.prev('features')}"
+                               th:text="#{${'seedstarter.feature.' + feat}}">Heating</label>
+                    </li>
+                    <li th:remove="all">
+                        <input id="removed1" type="checkbox"/>
+                        <label for="removed1">Turf</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <label th:text="#{seedstarter.rows}">Rows</label>
+                <table>
+                    <thead>
+                    <tr>
+                        <th th:text="#{seedstarter.rows.head.rownum}">Row</th>
+                        <th th:text="#{seedstarter.rows.head.variety}">Variety</th>
+                        <th th:text="#{seedstarter.rows.head.seedsPerCell}">Seeds per cell</th>
+                        <th>
+                            <button name="addRow" th:text="#{seedstarter.row.add}" type="submit">Add row</button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row ,rowStat : *{seedRows}">
+                        <input th:name="${row.id}" type="hidden"/>
+                        <td th:text="${rowStat.count}">1</td>
+                        <td>
+                            <select th:field="*{seedRows[__${rowStat.index}__].variety}">
+                                <option th:each="var : ${allVarieties}"
+                                        th:text="${var.name}"
+                                        th:value="${var.id}">Thymus Thymi
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input th:errorclass="fieldError"
+                                   th:field="*{seedRows[__${rowStat.index}__].seedsPerCell}"
+                                   type="text"/>
+                        </td>
+                        <td>
+                            <button name="removeRow" th:text="#{seedstarter.row.remove}"
+                                    th:value="${rowStat.index}"
+                                    type="submit">Remove row
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="submit">
+                <button name="save" th:text="#{seedstarter.create}" type="submit">Add Seed Starter</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
