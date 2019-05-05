@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,7 @@ public class HomeController {
 
     @RequestMapping({"/", "/seedstartermng"})
     public String showSeedstarters(SeedStarter seedStarter, Model model) {
-        seedStarter.setDatePlanted(LocalDateTime.now());
+        seedStarter.setDatePlanted(LocalDate.now());
         return "seedstartermng";
     }
 

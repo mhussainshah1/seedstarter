@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        SeedStarter seedStarter = new SeedStarter(LocalDateTime.now(), true, Type.PLASTIC, Feature.ALL);
+        SeedStarter seedStarter = new SeedStarter(LocalDate.now(), true, Type.PLASTIC, Feature.ALL);
         seedStarterRepository.save(seedStarter);
 
         varietyRepository.save(new Variety("Thymus vulgaris"));

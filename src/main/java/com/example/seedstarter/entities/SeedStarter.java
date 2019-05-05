@@ -1,7 +1,7 @@
 package com.example.seedstarter.entities;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class SeedStarter {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private LocalDateTime datePlanted;
+    private LocalDate datePlanted;
 
     private boolean covered;
 
@@ -28,11 +28,11 @@ public class SeedStarter {
     private List<SeedRow> seedRows;
 
     public SeedStarter() {
-        datePlanted = LocalDateTime.now();
+        datePlanted = LocalDate.now();
         seedRows = new ArrayList<>();
     }
 
-    public SeedStarter(LocalDateTime datePlanted, boolean covered, Type type, Feature[] features) {
+    public SeedStarter(LocalDate datePlanted, boolean covered, Type type, Feature[] features) {
         this.datePlanted = datePlanted;
         this.covered = covered;
         this.type = type;
@@ -47,11 +47,11 @@ public class SeedStarter {
         this.id = id;
     }
 
-    public LocalDateTime getDatePlanted() {
+    public LocalDate getDatePlanted() {
         return datePlanted;
     }
 
-    public void setDatePlanted(LocalDateTime datePlanted) {
+    public void setDatePlanted(LocalDate datePlanted) {
         this.datePlanted = datePlanted;
     }
 
