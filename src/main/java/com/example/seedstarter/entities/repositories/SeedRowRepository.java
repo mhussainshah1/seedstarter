@@ -7,7 +7,9 @@ package com.example.seedstarter.entities.repositories;
 
 import com.example.seedstarter.entities.SeedRow;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SeedRowRepository extends CrudRepository<SeedRow, Long> {
 
 }

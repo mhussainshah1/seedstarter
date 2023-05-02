@@ -15,6 +15,7 @@ public class VarietyFormatter implements Formatter<Variety> {
     private VarietyService varietyService;
 
     public VarietyFormatter() {
+        super();
     }
 
     @Override

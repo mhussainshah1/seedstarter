@@ -16,7 +16,7 @@ public class DateFormatter implements Formatter<LocalDate> {
     private MessageSource messageSource;
 
     public DateFormatter() {
-
+        super();
     }
 
     @Override
